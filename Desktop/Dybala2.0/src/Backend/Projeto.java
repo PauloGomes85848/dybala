@@ -2,31 +2,22 @@ package Backend;
 
 public class Projeto {
 
-    private String titulo;
-    private String descricao;
-    private User owner;
-    private String data_de_inicio;
-    private String data_de_fim;
-    private ListaTarefas listaTarefas;
-
-    public Projeto() {
-        this.listaTarefas = new ListaTarefas();
-    }
+	private String titulo;
+	private String descricao;
+	private User owner;
+	private String data_de_inicio;
+	private String data_de_fim;
+        private ListaTarefas listaTarefas;
 
     public Projeto(String titulo, String descricao, String data_de_inicio, String data_de_fim) {
         this.titulo = titulo;
         this.descricao = descricao;
         this.data_de_inicio = data_de_inicio;
         this.data_de_fim = data_de_fim;
+    }
+
+    public Projeto(){
         this.listaTarefas = new ListaTarefas();
-    }
-
-    public ListaTarefas getListaTarefas() {
-        return listaTarefas;
-    }
-
-    public void setListaTarefas(ListaTarefas listaTarefas) {
-        this.listaTarefas = listaTarefas;
     }
 
     public String getTitulo() {
@@ -67,6 +58,14 @@ public class Projeto {
 
     public void setData_de_fim(String data_de_fim) {
         this.data_de_fim = data_de_fim;
+    }
+
+    public ListaTarefas getListaTarefas() {
+        return listaTarefas;
+    }
+
+    public void setListaTarefas(ListaTarefas listaTarefas) {
+        this.listaTarefas = listaTarefas;
     }
 
     @Override

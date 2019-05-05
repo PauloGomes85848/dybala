@@ -36,14 +36,6 @@ public class Sistema implements Serializable {
         this.listaUser = new ListaUsers();
     }
 
-    public ListaUsers getListaUser() {
-        return listaUser;
-    }
-
-    public void setListaUser(ListaUsers listaUser) {
-        this.listaUser = listaUser;
-    }
-
     public ListaProjetos getListaProjetos() {
         return listaProjetos;
     }
@@ -90,28 +82,29 @@ public class Sistema implements Serializable {
                 }
             }
         } catch (NumberFormatException | DadosNaoEncontrados ex) {
-            JOptionPane.showMessageDialog(null, "Tem de introduzir o email de Loja", "ERRO", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Tem de introduzir o email do Utilizador", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
         return false;
     }
-
-    //Escreve e guarda toda a informação do sistema num ficheiro com o nome 'Data.bin'
-    public void guardar(String nomeFicheiro) {
-        try {
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nomeFicheiro));
-            out.writeObject(this);
-            out.close();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), NOME, JOptionPane.ERROR_MESSAGE);
+    
+    public User getAssociado(String email) throws DadosEmBranco, DadosInvalidos, DadosNaoEncontrados {
+        User u = null;
+        for(User user: this.listaUser.listaUser){
+            if(user.getMail().equals(email)){
+                u = user;
+            }
+            else{
+                throw new DadosNaoEncontrados("Utilizador não encontrado");
+            }
         }
+        return u;
     }
 
     /**
-     * Saí do programa.
+     * Encerra o programa.
      */
-    public void sair() {
-        guardar(this.NOME);
-        exit();
+    public void exit() {
+        System.exit(0);
     }
 
     /**
@@ -128,7 +121,19 @@ public class Sistema implements Serializable {
         }
     }
 
-    public void exit() {
-        System.exit(0);
+    public void sair() {
+        guardar(this.NOME);
+        exit();
+    }
+
+    //Escreve e guarda toda a informação do sistema num ficheiro com o nome 'Data.bin'
+    public void guardar(String nomeFicheiro) {
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nomeFicheiro));
+            out.writeObject(this);
+            out.close();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), NOME, JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

@@ -26,13 +26,13 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    public Login(Sistema sistema) {
+    public Login(final Sistema sistema) {
         initComponents();
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                sistema.sair();
+                dispose();
             }
         });
 
@@ -166,9 +166,6 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
         dispose();
-        HomePage homePage = new HomePage(sistema);
-        homePage.setVisible(true);
-        homePage.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton1MousePressed
 
     private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
@@ -180,22 +177,9 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
-
         String Email = email.getText();
         String Pw = new String(pw.getPassword());
         User u = null;
-
-        try {
-            u = sistema.getListaUsers().getUser(Email);
-
-        } catch (DadosNaoEncontrados ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-
-        if (Email.equals("") || Pw.equals("")) {
-            JOptionPane.showMessageDialog(null, "Administrador e Loja não inseridos", "ERRO", JOptionPane.ERROR_MESSAGE);
-        }
-
         try {
 
             if (sistema.autenticarUser(Email, Pw)) {

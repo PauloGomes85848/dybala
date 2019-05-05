@@ -7,19 +7,18 @@ public class Tarefa {
     private String prioridade;
     private String data_de_fim;
     private String estado;
-    private ListaAssociados listaAssociados;
-    
-    public Tarefa(){
-        this.listaAssociados = new ListaAssociados();
-    }
+    private User associado;
 
-    public Tarefa(String titulo, String descricao, String prioridade, String data_de_fim, String estado) {
+    public Tarefa(String titulo, String descricao, String prioridade, String data_de_fim, String estado, User associado) {
         this.titulo = titulo;
         this.descricao = descricao;
         this.prioridade = prioridade;
         this.data_de_fim = data_de_fim;
         this.estado = estado;
-        this.listaAssociados = new ListaAssociados();
+        this.associado = associado;
+    }
+    
+    public Tarefa(){
     }
 
     public String getTitulo() {
@@ -62,12 +61,12 @@ public class Tarefa {
         this.estado = estado;
     }
 
-    public ListaAssociados getListaAssociados() {
-        return listaAssociados;
+    public User getAssociado() {
+        return associado;
     }
 
-    public void setListaAssociados(ListaAssociados listaAssociados) {
-        this.listaAssociados = listaAssociados;
+    public void setAssociado(User associado) {
+        this.associado = associado;
     }
 
     @Override

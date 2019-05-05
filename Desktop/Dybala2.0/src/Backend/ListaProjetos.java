@@ -7,8 +7,6 @@ package Backend;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 /**
  *
@@ -18,7 +16,11 @@ public class ListaProjetos implements Serializable {
 
     private ArrayList<Projeto> listaProjetos;
 
-    public ArrayList<Projeto> getArrayListaProjetos() {
+    public ListaProjetos() {
+        this.listaProjetos = new ArrayList<>();
+    }
+
+    public ArrayList<Projeto> getListaProjetos() {
         return listaProjetos;
     }
 
@@ -26,21 +28,15 @@ public class ListaProjetos implements Serializable {
         this.listaProjetos = listaProjetos;
     }
 
-    public ListaProjetos() {
-        this.listaProjetos = new ArrayList<>();
-
-    }
-
-    public Projeto getListaProjetos(int y) {
-        for (int i = 0; i < listaProjetos.size(); i++) {
-
-            return listaProjetos.get(i);
-        }
-        return null;
+    public Projeto getListaProjetos(int i) {
+        return this.listaProjetos.get(i);
     }
 
     public void registarProjeto(Projeto p) {
         this.listaProjetos.add(p);
     }
-    
+
+    public void eliminarProjeto(Projeto p) {
+        this.listaProjetos.remove(p);
+    }
 }

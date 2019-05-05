@@ -6,6 +6,8 @@
 package Frontend;
 
 import Backend.Sistema;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.WindowConstants;
@@ -23,12 +25,12 @@ public class PaginaPrincipal extends javax.swing.JFrame {
      *
      * @param sistema
      */
+    // someComponent.addActionListener();
     public PaginaPrincipal(Sistema sistema) {
         initComponents();
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
-            @Override
             public void windowClosing(WindowEvent e) {
                 sistema.sair();
             }
@@ -492,18 +494,16 @@ public class PaginaPrincipal extends javax.swing.JFrame {
 
     private void definicoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_definicoesActionPerformed
         definicoes.getSelectedItem();
-
     }//GEN-LAST:event_definicoesActionPerformed
 
     private void NovoProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NovoProjetoActionPerformed
-        NovoProjeto novoProjeto = new NovoProjeto(sistema);
-        novoProjeto.setVisible(true);
-        novoProjeto.setLocationRelativeTo(null);
-        dispose();
+
     }//GEN-LAST:event_NovoProjetoActionPerformed
 
     private void NovoProjetoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NovoProjetoMousePressed
-
+        NovoProjeto novoProjeto = new NovoProjeto(sistema);
+        novoProjeto.setVisible(true);
+        novoProjeto.setLocationRelativeTo(null);
     }//GEN-LAST:event_NovoProjetoMousePressed
 
     private void definicoesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_definicoesMousePressed
@@ -514,7 +514,6 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         ListagemDeProjetos lp = new ListagemDeProjetos(sistema);
         lp.setVisible(true);
         lp.setLocationRelativeTo(null);
-        dispose();
     }//GEN-LAST:event_verProjetosActionPerformed
 
     private void verProjetosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_verProjetosMousePressed

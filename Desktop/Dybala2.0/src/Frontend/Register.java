@@ -30,7 +30,7 @@ public class Register extends javax.swing.JFrame {
         
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                sistema.sair();
+                dispose();
             }
         });
         
@@ -103,6 +103,11 @@ public class Register extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton2.setForeground(new java.awt.Color(171, 75, 46));
         jButton2.setText("Limpar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         Registar.setBackground(new java.awt.Color(255, 255, 255));
         Registar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -177,14 +182,10 @@ public class Register extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+       dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
-        dispose();
-        HomePage homePage = new HomePage(sistema);
-        homePage.setVisible(true);
-        homePage.setLocationRelativeTo(null);
 
     }//GEN-LAST:event_jButton1MousePressed
 
@@ -207,23 +208,20 @@ public class Register extends javax.swing.JFrame {
             
             sistema.getListaUsers().registarUser(uu);
 
-            for (User u : sistema.getListaUsers().listaUser) {
-                System.out.println(u.getNome() + " " + u.getNome() + " " + u.getPassword());
-            }
-            
             JOptionPane.showMessageDialog(null, "Utilizador registado com sucesso!");
-            
-            HomePage cc = new HomePage(sistema);
-            cc.setVisible(true);
-            cc.setLocationRelativeTo(null);
-            this.dispose();
 
+            this.dispose();
+            
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro na inserção de dados", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
 
 
     }//GEN-LAST:event_RegistarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

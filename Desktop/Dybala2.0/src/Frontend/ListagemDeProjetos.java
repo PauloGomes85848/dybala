@@ -5,11 +5,12 @@
  */
 package Frontend;
 
+import Backend.ListaAssociados;
 import Backend.Projeto;
 import Backend.Sistema;
+import Backend.Tarefa;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,29 +20,36 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ListagemDeProjetos extends javax.swing.JFrame {
 
+    /**
+     * Creates new form ListagemDeProjetos
+     */
     private Sistema sistema;
 
     DefaultTableModel model;
 
-    /**
-     * Creates new form ListagemDeProjetos
-     */
     public ListagemDeProjetos(Sistema sistema) {
         initComponents();
-
-        this.sistema = sistema;
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                dispose();
+                sistema.sair();
             }
         });
 
+        this.sistema = sistema;
         model = (DefaultTableModel) listagem.getModel();
 
+        model.setNumRows(0);
+        for (Projeto p : sistema.getListaProjetos().getListaProjetos()) {
+            model.addRow(new Object[]{p.getTitulo(), p.getDescricao(), p.getData_de_inicio(), p.getData_de_fim(), p.getOwner().getNome()});
+        }
     }
 
+    /**
+     *
+     * @return
+     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -61,19 +69,12 @@ public class ListagemDeProjetos extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Titulo", "Descricao ", "Owner", "Data de Início", "Data de Fim"
+                "Titulo", "Descricao ", "Data de Início", "Data de Fim", "Associados"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
-            };
             boolean[] canEdit = new boolean [] {
-                true, true, false, false, false
+                true, true, false, false, true
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -109,26 +110,24 @@ public class ListagemDeProjetos extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ListarosProjetos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Voltar)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(71, 71, 71)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Voltar)
+                    .addComponent(ListarosProjetos))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addContainerGap(84, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(ListarosProjetos)
-                    .addComponent(Voltar))
-                .addContainerGap())
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addComponent(Voltar)
+                .addGap(36, 36, 36))
         );
 
         pack();
@@ -136,17 +135,9 @@ public class ListagemDeProjetos extends javax.swing.JFrame {
 
     private void ListarosProjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarosProjetosActionPerformed
         model.setNumRows(0);
-        for (Projeto p : sistema.getListaProjetos().getArrayListaProjetos()) {
-            model.addRow(new Object[] {p.getTitulo(), p.getDescricao(), p.getOwner().getNome(), p.getData_de_inicio(), p.getData_de_fim()});
-        }
-
-
     }//GEN-LAST:event_ListarosProjetosActionPerformed
 
     private void VoltarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VoltarMousePressed
-        PaginaPrincipal pp = new PaginaPrincipal(sistema);
-        pp.setVisible(true);
-        pp.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_VoltarMousePressed
 

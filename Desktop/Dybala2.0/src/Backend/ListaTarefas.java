@@ -13,10 +13,10 @@ import java.util.ArrayList;
  * @author lucasbrito
  */
 public class ListaTarefas implements Serializable {
-    
+
     private ArrayList<Tarefa> listaTarefas;
-    
-    public ListaTarefas(){
+
+    public ListaTarefas() {
         this.listaTarefas = new ArrayList<>();
     }
 
@@ -27,28 +27,21 @@ public class ListaTarefas implements Serializable {
     public void setListaTarefas(ArrayList<Tarefa> listaTarefas) {
         this.listaTarefas = listaTarefas;
     }
-    
-    public void registarTarefa(Tarefa t){
+
+    public void registarTarefa(Tarefa t) {
         this.listaTarefas.add(t);
     }
-    
-    public void eliminarTarefa(Tarefa t){
+
+    public void eliminarTarefa(Tarefa t) {
         this.listaTarefas.remove(t);
     }
-    
-    public int size(){
+
+    public int size() {
         return this.listaTarefas.size();
     }
-    
-    public Tarefa getTarefaByIndex(int i){
-       return this.listaTarefas.get(i);
+
+    public Tarefa getTarefaByIndex(int i) {
+        return this.listaTarefas.get(i);
     }
-    
-    public Tarefa getTarefaByEmail(String email){
-        Tarefa task = null;
-        for(Tarefa t: listaTarefas){
-        }
-        return task;
-    }
-    
+
 }

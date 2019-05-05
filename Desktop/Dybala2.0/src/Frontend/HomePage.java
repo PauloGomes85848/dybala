@@ -7,9 +7,7 @@ package Frontend;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.WindowConstants;
 import Backend.Sistema;
-import static Backend.Sistema.NOME;
 
 /**
  *
@@ -23,7 +21,6 @@ public class HomePage extends javax.swing.JFrame {
      * Creates new form HomePage
      */
     public HomePage(Sistema sistema) {
-        
         initComponents();
         
         addWindowListener(new WindowAdapter() {
@@ -243,7 +240,6 @@ public class HomePage extends javax.swing.JFrame {
         Register register = new Register(sistema);
         register.setVisible(true);
         register.setLocationRelativeTo(null);
-        dispose();
     }//GEN-LAST:event_RegisterMousePressed
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
@@ -255,7 +251,6 @@ public class HomePage extends javax.swing.JFrame {
         Login login = new Login(sistema);
         login.setVisible(true);
         login.setLocationRelativeTo(null);
-        dispose();
     }//GEN-LAST:event_LoginMousePressed
 
     private void LoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginMouseClicked

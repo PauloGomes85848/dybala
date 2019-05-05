@@ -9,10 +9,12 @@ import Backend.Projeto;
 import Backend.Sistema;
 import Backend.Tarefa;
 import Backend.User;
+import excetions.DadosEmBranco;
+import excetions.DadosInvalidos;
+import excetions.DadosNaoEncontrados;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,29 +28,24 @@ public class AdicionarTarefas extends javax.swing.JFrame {
      * Creates new form AdicionarTarefas
      */
     private Sistema sistema;
-    private DefaultTableModel table;
     private Projeto projeto;
-    
-    
-    private Tarefa newTarefa;
+    private DefaultTableModel modelo;
+    private Tarefa tarefa;
 
-    public AdicionarTarefas(Sistema sistema, DefaultTableModel jTable1, Projeto newProjeto) {
+    public AdicionarTarefas(Sistema sistema, Projeto projeto, DefaultTableModel modelo) {
         initComponents();
-
+        
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                dispose();
+                sistema.sair();
             }
         });
-
+        
         this.sistema = sistema;
-        this.table = jTable1;
-        this.projeto = newProjeto;
-        
-        
-        this.newTarefa = new Tarefa();
-
+        this.projeto = projeto;
+        this.modelo = modelo;
+        this.tarefa = new Tarefa();
     }
 
     /**
@@ -60,158 +57,112 @@ public class AdicionarTarefas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jTextField4 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
         jTextField5 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextField1.setText("Titulo");
-
-        jTextField2.setText("Descricao");
-
-        jTextField3.setText("Prioridade");
-
-        jButton1.setText("Adicionar Associado");
+        jButton1.setText("Adicionar Tarefa");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jTextField4.setText("Email do Associado");
-        jTextField4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTextField4MouseClicked(evt);
-            }
-        });
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
+        jTextField1.setText("Titulo");
 
-        jButton2.setText("Adicionar Tarefa");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        jTextField2.setText("Descrição");
 
-        jTextField5.setText("Data de Fim");
+        jTextField3.setText("Prioridade");
 
-        jTextField6.setText("Estado");
+        jTextField4.setText("Data de Fim");
+
+        jTextField5.setText("Estado");
+
+        jTextField6.setText("Email do Utilizador para a Tarefa");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField5)
+                            .addComponent(jTextField3)
                             .addComponent(jTextField1)
                             .addComponent(jTextField2)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-                            .addComponent(jTextField6))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(128, 128, 128)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jTextField4)
+                            .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(jButton1)))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(40, 40, 40)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addGap(13, 13, 13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
-
-    private void jTextField4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField4MouseClicked
-
-    }//GEN-LAST:event_jTextField4MouseClicked
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            String email = jTextField4.getText();
+        try{
+            String titulo = jTextField1.getText();
+            String descricao = jTextField2.getText();
+            String prioridade = jTextField3.getText();
+            String DataFim = jTextField4.getText();
+            String Estado = jTextField5.getText();
+            String email = jTextField6.getText();
             
-            if (sistema.getListaUsers().getUser(email) != null) {
-                JOptionPane.showMessageDialog(null, "Utilizador associado com sucesso: " + sistema.getListaUsers().getUser(email).getNome(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                User u = sistema.getListaUsers().getUser(email);
-                newTarefa.getListaAssociados().registarAssociado(u);
+            User u = sistema.getAssociado(email);
+            
+            tarefa.setTitulo(titulo);
+            tarefa.setDescricao(descricao);
+            tarefa.setPrioridade(prioridade);
+            tarefa.setData_de_fim(DataFim);
+            tarefa.setEstado(Estado);
+            tarefa.setAssociado(u);
+            
+            projeto.getListaTarefas().registarTarefa(tarefa);
+            
+            modelo.setNumRows(0);
+            for(Tarefa t: projeto.getListaTarefas().getListaTarefas()){
+                modelo.addRow(new Object[] {t.getTitulo(), t.getDescricao(), t.getPrioridade(), t.getData_de_fim(), t.getEstado(), t.getAssociado().getNome()});
             }
-        } catch (Exception ex) {
+            
+            dispose();
+
+        }catch(DadosEmBranco | DadosInvalidos | DadosNaoEncontrados ex){
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
-            String titulo = jTextField1.getText();
-            String descricao = jTextField2.getText();
-            String prioridade = jTextField3.getText();
-            String dataFim = jTextField5.getText();
-            String estado = jTextField6.getText();
-
-            newTarefa.setTitulo(titulo);
-            newTarefa.setDescricao(descricao);
-            newTarefa.setPrioridade(prioridade);
-            newTarefa.setData_de_fim(dataFim);
-            newTarefa.setEstado(estado);
-
-            projeto.getListaTarefas().registarTarefa(newTarefa);
-
-            JOptionPane.showMessageDialog(null, "Tarefa adicionada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
-            if (projeto.getListaTarefas().getListaTarefas() != null) {
-                for (Tarefa t : projeto.getListaTarefas().getListaTarefas()) {
-                    table.addRow(new Object[]{t.getTitulo(), t.getDescricao(), t.getPrioridade(), t.getData_de_fim(), t.getEstado(), t.getListaAssociados().toString()});
-                }
-            }
-            
-            dispose();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
